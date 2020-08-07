@@ -1,4 +1,4 @@
-import { Colors, BlackAndWhiteColors } from './Colors';
+import { Colors, BlackAndWhiteColors } from './Colors'
 
 export type ColorSet = {
   square: Colors

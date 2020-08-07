@@ -6,13 +6,17 @@ import { PieceData, Piece, createTetrominos } from './Tetrominos'
 import { Dimensions, SectionPercentages } from './Dimensions'
 import { BoardSpot, createBoard } from './Board'
 import { NoBlockPresent } from './Constants'
-import { forEachPieceBlock, renderPieceBlocks, renderPieceBlock } from './PieceBlocks'
+import {
+  forEachPieceBlock,
+  renderPieceBlocks,
+  renderPieceBlock
+} from './PieceBlocks'
 
 type Props = {
   colorSet?: ColorSet
-  
+
   sectionPercentages?: SectionPercentages
-  
+
   unitSize?: number
   timeStepLength?: number
 
@@ -67,9 +71,8 @@ class PassiveTetris extends Component<Props> {
   constructor(props: Props) {
     super(props)
 
-    this.typesOfPieces = props.typesOfPieces || createTetrominos(
-      props.colorSet || DefaultColorSet
-    )
+    this.typesOfPieces =
+      props.typesOfPieces || createTetrominos(props.colorSet || DefaultColorSet)
 
     this.foregroundRef = React.createRef()
     this.backgroundRef = React.createRef()
@@ -82,21 +85,26 @@ class PassiveTetris extends Component<Props> {
     }
 
     this.lastMove = Date.now()
-    this.timeStepLength = props.timeStepLength || PassiveTetris.defaultTimeStepLength()
+    this.timeStepLength =
+      props.timeStepLength || PassiveTetris.defaultTimeStepLength()
     this.unitSize = props.unitSize || PassiveTetris.defaultUnitSize
     this.linesCleared = 0
     this.level = 0
   }
 
   componentDidUpdate(previousProps: Props) {
-    if (previousProps.colorSet !== this.props.colorSet || previousProps.typesOfPieces !== this.props.typesOfPieces) {
-      this.typesOfPieces = this.props.typesOfPieces || createTetrominos(
-        this.props.colorSet || DefaultColorSet
-      )
+    if (
+      previousProps.colorSet !== this.props.colorSet ||
+      previousProps.typesOfPieces !== this.props.typesOfPieces
+    ) {
+      this.typesOfPieces =
+        this.props.typesOfPieces ||
+        createTetrominos(this.props.colorSet || DefaultColorSet)
     }
 
     if (previousProps.timeStepLength !== this.props.timeStepLength) {
-      this.timeStepLength = this.props.timeStepLength || PassiveTetris.defaultTimeStepLength()
+      this.timeStepLength =
+        this.props.timeStepLength || PassiveTetris.defaultTimeStepLength()
     }
 
     if (previousProps.unitSize !== this.props.unitSize) {
@@ -108,7 +116,7 @@ class PassiveTetris extends Component<Props> {
 
   reset() {
     if (!this.boardDimensions) {
-      throw new Error("Board dimensions not set, unable to reset")
+      throw new Error('Board dimensions not set, unable to reset')
     }
     this.board = createBoard(this.boardDimensions)
 
@@ -240,7 +248,7 @@ class PassiveTetris extends Component<Props> {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     forEachPieceBlock(
-      board.map((value) => value.map((value) => value.pieceBlockPresent)),
+      board.map(value => value.map(value => value.pieceBlockPresent)),
       (x, y) => {
         var bX = x * unitSize
         var bY = y * unitSize
@@ -249,14 +257,7 @@ class PassiveTetris extends Component<Props> {
         if (!colors) {
           return
         }
-        renderPieceBlock(
-          bX,
-          bY,
-          unitSize,
-          colors,
-          sectionPercentages,
-          ctx
-        )
+        renderPieceBlock(bX, bY, unitSize, colors, sectionPercentages, ctx)
       }
     )
   }
@@ -300,7 +301,7 @@ class PassiveTetris extends Component<Props> {
 
   newPiece() {
     if (!this.boardDimensions) {
-      throw new Error("Board dimensions not set, unable to create new piece")
+      throw new Error('Board dimensions not set, unable to create new piece')
     }
     var pieceNumber = Math.floor(Math.random() * this.typesOfPieces.length)
 
@@ -326,7 +327,7 @@ class PassiveTetris extends Component<Props> {
   addPieceToPile(piece: CurrentPiece) {
     const board = this.board
     if (!board) {
-      throw new Error("Board not set up, unable to add Piece to Pile")
+      throw new Error('Board not set up, unable to add Piece to Pile')
     }
     PassiveTetris.forEachBlockInPiece(piece, (x, y) => {
       board[x + piece.x][y + piece.y].pieceBlockPresent = true
@@ -341,7 +342,7 @@ class PassiveTetris extends Component<Props> {
     const board = this.board
     const boardDimensions = this.boardDimensions
     if (!board || !boardDimensions) {
-      throw new Error("Board not set up, check Piece movement")
+      throw new Error('Board not set up, check Piece movement')
     }
 
     var moveOk = true
@@ -359,8 +360,7 @@ class PassiveTetris extends Component<Props> {
       if (
         piece.x + x + newX >= boardDimensions.width ||
         piece.x + x + newX < 0 ||
-        board[piece.x + x + newX][y + piece.y + newY].pieceBlockPresent ===
-          true
+        board[piece.x + x + newX][y + piece.y + newY].pieceBlockPresent === true
       ) {
         moveOk = false
       }
@@ -376,7 +376,7 @@ class PassiveTetris extends Component<Props> {
     const board = this.board
     const boardDimensions = this.boardDimensions
     if (!board || !boardDimensions) {
-      throw new Error("Board not set up, check Piece movement")
+      throw new Error('Board not set up, check Piece movement')
     }
 
     var linesCleared = this.linesCleared
@@ -448,7 +448,7 @@ class PassiveTetris extends Component<Props> {
     const board = this.board
     const boardDimensions = this.boardDimensions
     if (!board || !boardDimensions) {
-      throw new Error("Board not set up, check Piece movement")
+      throw new Error('Board not set up, check Piece movement')
     }
     var halfHeight = boardDimensions.height / 2
 
@@ -503,8 +503,8 @@ class PassiveTetris extends Component<Props> {
     }
     return (
       <div style={style}>
-        <canvas  style={canvasStyle} ref={this.foregroundRef} />
-        <canvas  style={canvasStyle} ref={this.backgroundRef} />
+        <canvas style={canvasStyle} ref={this.foregroundRef} />
+        <canvas style={canvasStyle} ref={this.backgroundRef} />
       </div>
     )
   }

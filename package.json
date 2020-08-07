@@ -29,9 +29,9 @@
   },
   "prettier": {
     "printWidth": 80,
-    "semi": true,
+    "semi": false,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "none"
   },
   "name": "@pl-ig/react-passive-tetris",
   "author": "Ian Grossberg",
