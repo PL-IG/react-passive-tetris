@@ -33,7 +33,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-passive-tetris",
+  "name": "@pl-ig/react-passive-tetris",
   "author": "Ian Grossberg",
   "module": "dist/passive-tetris.esm.js",
   "devDependencies": {
@@ -58,5 +58,8 @@
     "tslib": "^2.0.0",
     "typescript": "^3.9.7"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
